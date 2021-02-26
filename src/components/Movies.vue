@@ -1,4 +1,5 @@
 <template>
+  <div>
   <v-row>
     <template
       v-if="loading"
@@ -23,18 +24,44 @@
             cols="12"
             sm="6"
             md="4"
-            style="text-align: center"
+            class="pr-0"
+            style="width:290px"
           >
-            <div>
-              <iframe :src="item.url" width="290" height="163.25" frameborder="0" />
-              <p>{{ item.comment }}</p>
+            <div
+              style=" text-align:center "
+            >
+              <iframe
+                :src="item.url"
+                width="290"
+                height="163.25"
+                frameborder="0"
+              />
+              <v-card
+                draggable
+                @dragstart="dragMovie(item.id)"
+                color="blue"
+                height="50"
+                width="290"
+                style="margin:auto"
+              >
+              <v-col>
+              <p style="white">
+                {{ item.comment }}
+              </p>
+              </v-col>
+              </v-card>
             </div>
           </v-col>
     </template>
   </v-row>
+  <trash
+      :dropped-movie-id="droppedMovieId"
+  />
+  </div>
 </template>
 
 <script>
+import Trash from "./Trash"
 export default {
   props: {
     movieItems: {
@@ -48,9 +75,14 @@ export default {
     },
   },
 
+  components:{
+    Trash,
+  },
+
   data() {
     return {
       movieInternalItems: [],
+      droppedMovieId: 0,
     };
   },
   methods: {
@@ -80,6 +112,10 @@ export default {
         }
         return comparison
       },
+      dragMovie (id){
+        console.log(id)
+        this.droppedMovieId = id
+      }
 
   },
 };
