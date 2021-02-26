@@ -1,18 +1,36 @@
 <template>
   <v-row>
-    <v-col
-      v-for="item in movieInternalItems"
-      :key="item.id"
-      cols="12"
-      sm="6"
-      md="4"
-      style="text-align: center"
+    <template
+      v-if="loading"
     >
-      <div>
-        <iframe :src="item.url" width="290" height="163.25" frameborder="0" />
-        <p>{{ item.comment }}</p>
-      </div>
-    </v-col>
+        <v-container
+          class="px-10 py-10"
+          style="text-align:center"
+        >
+          <v-progress-circular
+            size="70"
+            color="blue"
+            indeterminate
+          />
+        </v-container>
+    </template>
+    <template
+      v-else
+    >
+          <v-col
+            v-for="item in movieInternalItems"
+            :key="item.id"
+            cols="12"
+            sm="6"
+            md="4"
+            style="text-align: center"
+          >
+            <div>
+              <iframe :src="item.url" width="290" height="163.25" frameborder="0" />
+              <p>{{ item.comment }}</p>
+            </div>
+          </v-col>
+    </template>
   </v-row>
 </template>
 
@@ -22,6 +40,11 @@ export default {
     movieItems: {
       type: Array,
       default: null,
+    },
+    loading: {
+      type: Boolean,
+      required: true,
+      default: true,
     },
   },
 
