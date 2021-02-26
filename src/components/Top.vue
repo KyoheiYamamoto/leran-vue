@@ -59,8 +59,25 @@
           this.$refs.movies.init()
         })
       },
+
       storeMovie (movieUrl, comment) {
-        console.log(movieUrl, comment)
+        this.loading = true
+        this.responseError =[],
+        // console.log(movieUrl, comment)
+        axios.post('https://youtube-curation.herokuapp.com/rest', {
+          url:movieUrl,
+          comment:comment,
+        }).then((response) => {
+          this.movieItems = response.data.movies
+        }).catch((error) =>{
+          console.log(error)
+          this.responseError = ['動画の投稿に失敗しました']
+        }).finally(() => {
+          setTimeout(() => {
+            this.loading = false
+          }, 1000)
+          this.$refs.movies.init()
+        })
       }
     },
   }
