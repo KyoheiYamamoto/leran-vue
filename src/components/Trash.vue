@@ -43,7 +43,8 @@
     methods: {
       // 動画削除処理
       dropOnTrash () {
-        console.log(this.droppedMovieId)
+        // console.log(this.droppedMovieId)
+        this.$emit ('deleteMovie' ,this.droppedMovieId)
       },
     },
   }

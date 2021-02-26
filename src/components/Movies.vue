@@ -56,6 +56,7 @@
   </v-row>
   <trash
       :dropped-movie-id="droppedMovieId"
+      @deleteMovie="deleteMovie"
   />
   </div>
 </template>
@@ -112,10 +113,15 @@ export default {
         }
         return comparison
       },
+
       dragMovie (id){
         console.log(id)
         this.droppedMovieId = id
-      }
+      },
+
+      deleteMovie() {
+        this.$emit('deleteMovie' , this.droppedMovieId)
+      },
 
   },
 };
